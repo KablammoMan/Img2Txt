@@ -14,7 +14,6 @@ def average(img: np.ndarray, chnlst: np.ndarray) -> int:
 
 H = "#" * 20
 WIDTH = 200
-COLOR = False
 
 if "nt" in os.name.lower():
     home = "C:"
@@ -38,26 +37,23 @@ image = cv2.resize(image, newd)
 timg = ""
 for row in tqdm.trange(image.shape[0]):
     for col in range(image.shape[1]):
-        if not COLOR:
-            sm = average(image, image[row][col])
-            timg += f"\033[38;2;{image[row][col][2]};{image[row][col][1]};{image[row][col][0]}m"
-            if sm <= 31:
-                timg += " "
-            elif sm <= 63:
-                timg += "."
-            elif sm <= 95:
-                timg += "^"
-            elif sm <= 127:
-                timg += "!"
-            elif sm <= 159:
-                timg += "$"
-            elif sm <= 191:
-                timg += "@"
-            elif sm <= 223:
-                timg += "#"
-            else:
-                timg += "%"
+        sm = average(image, image[row][col])
+        timg += f"\033[38;2;{image[row][col][2]};{image[row][col][1]};{image[row][col][0]}m"
+        if sm <= 31:
+            timg += " "
+        elif sm <= 63:
+            timg += "."
+        elif sm <= 95:
+            timg += "^"
+        elif sm <= 127:
+            timg += "!"
+        elif sm <= 159:
+            timg += "$"
+        elif sm <= 191:
+            timg += "@"
+        elif sm <= 223:
+            timg += "#"
         else:
-            timg += f"\033[48;2;{image[row][col][2]};{image[row][col][1]};{image[row][col][0]}m"
+            timg += "%"
     timg += "\n"
 print(timg)
