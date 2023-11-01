@@ -13,7 +13,7 @@ def average(img: np.ndarray, chnlst: np.ndarray) -> int:
 
 
 H = "#" * 20
-WIDTH = 200
+WIDTH = 150
 
 if "nt" in os.name.lower():
     home = "C:"
@@ -34,26 +34,14 @@ newh = int(scaleF*image.shape[0])
 newd = (WIDTH, newh)
 image = cv2.resize(image, newd)
 
+ASCII = '!@#$%^&-+=.?:"~ '
+SORTED_ASCII = ' ."^-~+=:!?&#$%@'
+
 timg = ""
 for row in tqdm.trange(image.shape[0]):
     for col in range(image.shape[1]):
         sm = average(image, image[row][col])
         timg += f"\033[38;2;{image[row][col][2]};{image[row][col][1]};{image[row][col][0]}m"
-        if sm <= 31:
-            timg += " "
-        elif sm <= 63:
-            timg += "."
-        elif sm <= 95:
-            timg += "^"
-        elif sm <= 127:
-            timg += "!"
-        elif sm <= 159:
-            timg += "$"
-        elif sm <= 191:
-            timg += "@"
-        elif sm <= 223:
-            timg += "#"
-        else:
-            timg += "%"
+        timg += SORTED_ASCII[int(sm // (256 / len(SORTED_ASCII)))]
     timg += "\n"
 print(timg)
