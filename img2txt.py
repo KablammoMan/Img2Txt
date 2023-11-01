@@ -21,7 +21,6 @@ def average(img: np.ndarray, chnlst: np.ndarray) -> int:
     return avg
 
 # Constants
-H = "#" * 20
 WIDTH = 150
 
 # Determine the home directory based on the operating system
